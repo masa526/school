@@ -27,6 +27,7 @@ def report_list(request):
         for gender in Member.GENDER:
             gender_reports.append({
                 'plan_name': plan.name,
+                'plan_basic_charge_yen': plan.basic_charge_yen,
                 'gender': gender[1],
                 'lesson_num': lessons.filter(plan=plan, member__gender=gender[0]).count(),
                 'lesson_member_num': lessons.filter(plan=plan, member__gender=gender[0]).values('member').distinct().count(),
@@ -40,11 +41,11 @@ def report_list(request):
                 gen = int(generation[0])
                 generation_reports.append({
                     'plan_name': plan.name,
+                    'plan_basic_charge_yen': plan.basic_charge_yen,
                     'gender': gender[1],
                     'generation': generation[1],
                     'lesson_num': lessons.filter(plan=plan, member__gender=gender[0], member__age__range=(gen, gen + 9)).count(),
                     'lesson_member_num': lessons.filter(plan=plan, member__gender=gender[0], member__age__range=(gen, gen + 9)).values('member').distinct().count(),
                     'price': lessons.filter(plan=plan, member__gender=gender[0], member__age__range=(gen, gen + 9)).aggregate(sum_charge_yen=Sum('charge_yen')),
                 })
-    print(generation_reports)
     return render(request, 'report/list.html', {'generation_reports':generation_reports, 'gender_reports':gender_reports, 'form': form})

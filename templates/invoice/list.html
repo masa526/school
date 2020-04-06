@@ -34,7 +34,7 @@
             <td scope="row">{{ member.count }} レッスン</td>
             <td scope="row">
                 {% if member.lesson.sum_charge_yen is not None %}
-                    {{ member.lesson.sum_charge_yen }}
+                    {{ member.lesson.sum_charge_yen|add:member.basic_charge_yen }}
                 {% else %}
                     0
                 {% endif %}

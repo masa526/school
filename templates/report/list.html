@@ -31,7 +31,7 @@
                 <td scope="row">{{ gender_report.lesson_member_num }}</td>
                 <td scope="row">
                     {% if gender_report.price.sum_charge_yen is not None %}
-                        {{ gender_report.price.sum_charge_yen }}
+                        {{ gender_report.price.sum_charge_yen|add:gender_report.plan_basic_charge_yen }}
                     {% else %}
                         0
                     {% endif %}
@@ -62,7 +62,7 @@
                 <td scope="row">{{ generation_report.lesson_member_num }}</td>
                 <td scope="row">
                     {% if generation_report.price.sum_charge_yen is not None %}
-                        {{ generation_report.price.sum_charge_yen }}
+                        {{ generation_report.price.sum_charge_yen|add:generation_report.plan_basic_charge_yen }}
                     {% else %}
                         0
                     {% endif %}
