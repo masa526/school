@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}顧客の一覧{% endblock title %}
+
+{% block content %}
+<h4 class="mt-4 border-bottom">
+    顧客一覧
+    <a href="/" class="btn btn-link btn-sm">戻る</a>
+</h4>
+<a href="{% url 'member:member_add' %}" class="btn btn-primary btn-sm my-3">新規追加</a>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">顧客名</th>
+            <th scope="col">性別</th>
+            <th scope="col">年齢</th>
+            <th scope="col">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for member in members %}
+        <tr>
+            <td scope="row">{{ member.id }}</td>
+            <td scope="row">{{ member.name }}</td>
+            <td scope="row">{{ member.get_gender_display }}</td>
+            <td scope="row">{{ member.age }}</td>
+            <td scope="row">
+                <a href="{% url 'member:member_mod' member_id=member.id %}"
+                    class="btn btn-outline-primary btn-sm">編集</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

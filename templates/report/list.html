@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}レポート{% endblock title %}
+
+{% block content %}
+<h4 class="mt-4 border-bottom">
+    レポート
+    <a href="/" class="btn btn-link btn-sm">戻る</a>
+</h4>
+<form>
+    {{ form.select_month }}
+    <button type="submit" class="btn btn-primary">送信</button>
+</form>
+<h5>ジャンルと性別</h5>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">ジャンル</th>
+            <th scope="col">性別</th>
+            <th scope="col">レッスン数</th>
+            <th scope="col">受講者数</th>
+            <th scope="col">売り上げ</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for gender_report in gender_reports %}
+            <tr>
+                <td scope="row">{{ gender_report.plan_name }}</td>
+                <td scope="row">{{ gender_report.gender }}</td>
+                <td scope="row">{{ gender_report.lesson_num }}</td>
+                <td scope="row">{{ gender_report.lesson_member_num }}</td>
+                <td scope="row">
+                    {% if gender_report.price.sum_charge_yen is not None %}
+                        {{ gender_report.price.sum_charge_yen }}
+                    {% else %}
+                        0
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<h5>ジャンルと年齢層別</h5>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">ジャンル</th>
+            <th scope="col">性別</th>
+            <th scope="col">年代</th>
+            <th scope="col">レッスン数</th>
+            <th scope="col">受講者数</th>
+            <th scope="col">売り上げ</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for generation_report in generation_reports %}
+            <tr>
+                <td scope="row">{{ generation_report.plan_name }}</td>
+                <td scope="row">{{ generation_report.gender }}</td>
+                <td scope="row">{{ generation_report.generation }}</td>
+                <td scope="row">{{ generation_report.lesson_num }}</td>
+                <td scope="row">{{ generation_report.lesson_member_num }}</td>
+                <td scope="row">
+                    {% if generation_report.price.sum_charge_yen is not None %}
+                        {{ generation_report.price.sum_charge_yen }}
+                    {% else %}
+                        0
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

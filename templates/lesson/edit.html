@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+<h4 class="mt-4 mb-5 border-bottom">
+    {{ title }}
+    <a href="{% url 'lesson:lesson_list' %}" class="btn btn-link btn-sm">戻る</a>
+</h4>
+<form
+    {% if lesson_id %}
+        action="{% url 'lesson:lesson_mod' lesson_id=lesson_id %}"
+    {% else %}
+        action="{% url 'lesson:lesson_add' %}"
+    {% endif %}
+    method="post"
+>
+    {% csrf_token %}
+    {% bootstrap_form form layout='horizontal' %}
+    <div class="form-group row">
+        <div class="offset-md-3 col-md-9">
+            <button type="submit" class="btn btn-primary">送信</button>
+        </div>
+    </div>
+</form>
+{% endblock content %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}請求一覧{% endblock title %}
+
+{% block content %}
+<h4 class="mt-4 border-bottom">
+    請求一覧
+    <a href="/" class="btn btn-link btn-sm">戻る</a>
+</h4>
+<form>
+    {{ form.select_month }}
+    <button type="submit" class="btn btn-primary">送信</button>
+</form>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">顧客名</th>
+            <th scope="col">ジャンル</th>
+            <th scope="col">合計レッスン数</th>
+            <th scope="col">請求金額</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for member in members %}
+        <tr>
+            <td scope="row">{{ member.id }}</td>
+            <td scope="row">{{ member.name }}</td>
+            <td scope="row">
+                {% if member.plan_len > 0 %}
+                    {{ member.plan_names }}({{ member.plan_len }})
+                {% endif %}
+            </td>
+            <td scope="row">{{ member.count }} レッスン</td>
+            <td scope="row">
+                {% if member.lesson.sum_charge_yen is not None %}
+                    {{ member.lesson.sum_charge_yen }}
+                {% else %}
+                    0
+                {% endif %}
+                円
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

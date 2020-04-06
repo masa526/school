@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}レッスン受講記録{% endblock title %}
+
+{% block content %}
+<h4 class="mt-4 border-bottom">
+    レッスン受講記録
+    <a href="/" class="btn btn-link btn-sm">戻る</a>
+</h4>
+<a href="{% url 'lesson:lesson_add' %}" class="btn btn-primary btn-sm my-3">新規追加</a>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">受講者</th>
+            <th scope="col">ジャンル</th>
+            <th scope="col">受講日</th>
+            <th scope="col">受講時間</th>
+            <th scope="col">支払金額</th>
+            <th scope="col">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for lesson in lessons %}
+        <tr>
+            <td scope="row">{{ lesson.id }}</td>
+            <td scope="row">{{ lesson.member }}</td>
+            <td scope="row">{{ lesson.plan }}</td>
+            <td scope="row">{{ lesson.date }}</td>
+            <td scope="row">{{ lesson.hour }}</td>
+            <td scope="row">{{ lesson.charge_yen }}</td>
+            <td>
+                <a href="{% url 'lesson:lesson_mod' lesson_id=lesson.id %}"
+                    class="btn btn-outline-primary btn-sm">編集</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
